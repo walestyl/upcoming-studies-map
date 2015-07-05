@@ -43,7 +43,7 @@ html, body, #googft-mapCanvas {
         where: "col6 in (\x27\x27, \x27pine\x27, \x27spruce trees\x27) and col7 in (\x27\x27, \x27Sturgen\x27, \x27sea lions\x27)"
       },
       options: {
-        styleId: 1,
+        styleId: 2,
         templateId: 3
       }
     });
@@ -55,7 +55,7 @@ html, body, #googft-mapCanvas {
       legend.style.display = 'none';
       legendOpenButton.style.display = 'block';
       legendCloseButton.style.display = 'block';
-      legendOpenButton.onclick = function() {
+      legendOpenButton.onMouseOver = function() {
         legend.style.display = 'block';
         legendOpenButton.style.display = 'none';
       }
