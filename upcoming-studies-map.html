@@ -67,6 +67,47 @@ html, body, #googft-mapCanvas {
   }
 
   google.maps.event.addDomListener(window, 'load', initialize);
+  
+       // Filter the map based on checkbox selection.
+      function filterMap(layer, tableId, map) {
+        var where = generateWhere();
+
+        if (where) {
+          if (!layer.getMap()) {
+            layer.setMap(map);
+          }
+          layer.setOptions({
+            query: {
+              select: 'Address',
+              from: tableId,
+              where: where
+            }
+          });
+        } else {
+          layer.setMap(null);
+        }
+      }
+
+      // Generate a where clause from the checkboxes. If no boxes
+      // are checked, return an empty string.
+      function generateWhere() {
+        var filter = [];
+        var stores = document.getElementsByName('store');
+        for (var i = 0, store; store = stores[i]; i++) {
+          if (store.checked) {
+            var storeName = store.value.replace(/'/g, '\\\'');
+            filter.push("'" + storeName + "'");
+          }
+        }
+        var where = '';
+        if (filter.length) {
+          where = "'Store Name' IN (" + filter.join(',') + ')';
+        }
+        return where;
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+  
 </script>
 </head>
 
